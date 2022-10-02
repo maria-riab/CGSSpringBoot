@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Grade</title>
+</head>
+<body>
+<form th:href='@{/grade}' th:method="post" th:object="${grade}">
+    <select name="selectedStudent">
+        <option value="default">Select a Student</option>
+        <option th:each=" student : ${studentList}" th:value="${student.id }"th:text="${student.firstName}"/>
+    </select>
+    <br>
+    <select name="selectedCourse">
+        <option value="default">Select a course</option>
+        <option th:each=" course : ${courseList}" th:value="${course.courseID }"th:text="${course.name}"/>
+    </select>
+    <br>
+    <label for="grade">Input the grade</label>
+    <input type="number" min="0" th:field="*{grade}" id="grade">
+    <br>
+    <label for="semester">Semester</label>
+    <input type="text" name="semester" id="semester">
+    <br>
+    <label for="year">Year</label>
+    <input type="number" min="2020" max="2022" th:field="*{year}" id="year">
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

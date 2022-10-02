@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>See all Grades</title>
+</head>
+<body>
+<h1>Here are all Grades</h1>
+<ul>
+    <li th:each="grade : ${gradeList}"  th:value="${grade.transcriptID}" th:text="${grade.grade}"/></li>
+</ul>
+
+<a th:href="@{/grade/addGrade}">click here to add another grade </a>
+</body>
+</html>

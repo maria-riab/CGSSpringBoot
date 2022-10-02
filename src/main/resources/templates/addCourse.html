@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Course</title>
+</head>
+<body>
+
+<form th:href='@{/course}' th:method="post" th:object="${course}">
+    <label for="name">course name</label>
+    <input type="text" th:field="*{name}" id="name">
+    <br>
+    <label for="description">description</label>
+    <textarea th:field="*{description}" id="description"  rows="4" cols="50" placeholder="Enter your description here">
+    </textarea>
+<!--    <label for="instructors">Select the instructors</label>-->
+<!--    <select name="administratorID" id="instructors">-->
+<!--        <option th:each="teacher : ${instructors}"  value="${teacher.administratorId}" th:text="${teacher.username}"></option>-->
+<!--    </select>-->
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
