@@ -51,7 +51,7 @@ public class StudentController {
             model.addAttribute("studentGrades", student.getGrades());
             return "seeGradesByStudent";
         }
-        return "seAllStudents";
+        return "seeAllStudents";
 
     }
 
