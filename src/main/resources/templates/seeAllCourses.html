@@ -1,47 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>See all courses</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
 
 <body>
-<div class="container-fluid">
-    <div class="container-md p-5">
-        <h1>All courses</h1>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="container-md p-5">
+            <h1>All courses</h1>
+        </div>
+
+        <div class="row col-10 justify-content-md-center p-3">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Administrator ID</th>
+                    <th colspan="2">Action</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courseList}" th:value="${course.courseID}">
+                    <td th:text="${course.name}"></td>
+                    <td th:text="${course.description}"></td>
+                    <td th:text="${course.administratorId}"></td>
+                    <td>
+                        <button type="button" class="btn btn-dark">Edit</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="row col-10 justify-content-md-center p-5">
+            <a th:href="@{/course/addCourse}">Add another course </a>
+        </div>
     </div>
-
-    <div class="row justify-content-md-center">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Administrator ID</th>
-                <th colspan="2">Action</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="course : ${courseList}" th:value="${course.courseID}">
-                <td  th:text="${course.name}"></td>
-                <td  th:text="${course.description}"></td>
-                <td  th:text="${course.administratorId}"></td>
-                <td><button type="button" class="btn btn-dark">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Delete</button></td>
-            </tr>
-            </tbody>
-
-        </table>
-    </div>
-
-
-<a th:href="@{/course/addCourse}">Add another course </a>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -1,32 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Grade</title>
-</head>
-<body>
-<form th:href='@{/grade}' th:method="post" th:object="${grade}">
-    <select name="selectedStudent">
-        <option value="default">Select a Student</option>
-        <option th:each=" student : ${studentList}" th:value="${student.id }"th:text="${student.firstName}"/>
-    </select>
-    <br>
-    <select name="selectedCourse">
-        <option value="default">Select a course</option>
-        <option th:each=" course : ${courseList}" th:value="${course.courseID }"th:text="${course.name}"/>
-    </select>
-    <br>
-    <label for="grade">Input the grade</label>
-    <input type="number" min="0" th:field="*{grade}" id="grade">
-    <br>
-    <label for="semester">Semester</label>
-    <input type="text" name="semester" id="semester">
-    <br>
-    <label for="year">Year</label>
-    <input type="number" min="2020" max="2022" th:field="*{year}" id="year">
-    <br>
-    <input type="submit" value="Submit">
-</form>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
 
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="container-md p-5">
+            <h1>Add a new grade</h1>
+        </div>
+
+        <div class="row col-6 justify-content-md-center p-3">
+            <table class="table justify-content border-white ">
+                <form th:href='@{/grade}' th:method="post" th:object="${grade}">
+                    <tr>
+                        <td>
+                            <p>Select a course and a student:</p>
+                        </td>
+                        <td>
+                            <select class="custom-select" name="selectedStudent">
+                                <option value="default">Student</option>
+                                <option th:each=" student : ${studentList}" th:value="${student.id }"
+                                        th:text="${student.firstName} + ' ' + ${student.lastName}"/>
+                            </select>
+                        </td>
+
+                        <td>
+                            <select name="selectedCourse">
+                                <option value="default">Course</option>
+                                <option th:each=" course : ${courseList}" th:value="${course.courseID }"
+                                        th:text="${course.name}"/>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="grade" class="form-label">Grade</label>
+                            <input type="number" min="0" max="100" th:field="*{grade}" id="grade" class="form-control">
+                        </td>
+
+                        <td>
+                            <label for="semester" class="form-label">Semester</label>
+                            <input type="text" name="semester" id="semester" class="form-control">
+                        </td>
+
+                        <td>
+                            <label for="year" class="form-label">Year</label>
+                            <input type="number" min="2020" max="2022" th:field="*{year}" id="year"
+                                   class="form-control">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <!-- Submit button -->
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-block mb-3">Submit</button>
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+                </form>
+            </table>
+        </div>
+    </div>
+
+</div>
+</div>
 </body>
 </html>
