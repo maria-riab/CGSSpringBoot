@@ -44,6 +44,22 @@ public class Student {
     public void setGrades(Collection<Grade> grades) {
         this.grades = grades;
     }
+    public void updateGrade(Grade grade){
+        for(Grade sGrade : grades){
+            if (sGrade.getTranscriptID() == grade.getTranscriptID()){
+                sGrade.setGrade(grade.getGrade());
+                sGrade.setSemester(grade.getSemester());
+                sGrade.setYear(grade.getYear());
+            }
+        }
+    }
+    public void deleteGrade(Grade grade){
+        for(Grade sGrade : grades){
+            if (sGrade.getTranscriptID() == grade.getTranscriptID()){
+                this.grades.remove(sGrade);
+            }
+        }
+    }
     public void addGrade(Grade grade){
         this.grades.add(grade);
     }

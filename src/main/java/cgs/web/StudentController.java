@@ -42,6 +42,8 @@ public class StudentController {
     public String showAllStudents(){
         return "seeAllStudents";
     }
+    @GetMapping("/edit")
+    public String editStudent(){ return "editStudent";}
 
     @GetMapping("/{studentId}")
     public String showGradesByStudent(@PathVariable("studentId") long studentId, Model model){
@@ -49,6 +51,7 @@ public class StudentController {
         log.info("Logging " + studentId);
         if (student != null) {
             model.addAttribute("studentGrades", student.getGrades());
+            model.addAttribute("studentToDisplayGrades", student);
             return "seeGradesByStudent";
         }
         return "seeAllStudents";
@@ -61,6 +64,24 @@ public class StudentController {
             showStudentForm();
         }
         studentRepo.save(student);
+        return "redirect:/student";
+    }
+    @PostMapping
+    private String modifyOrDeleteStudent(@RequestParam(name = "studentID") String studentID, @RequestParam(name = "actionType", required = false) String actionType, Student student, Model model) {
+        if (actionType.equalsIgnoreCase("delete")) {
+            log.info("STUDENT ID" + studentID);
+            studentRepo.deleteById(Long.parseLong(studentID));
+            return "redirect:/student";
+        } else if (actionType.equalsIgnoreCase("sendToModify")){
+            model.addAttribute("studentToModify", studentRepo.findById(Long.parseLong(studentID)).get());
+            return "editStudent";
+        }
+        else if (actionType.equalsIgnoreCase("edit")){ // the student is here to be modified lol
+            if (student != null && student.getId() == Long.parseLong(studentID)){
+                studentRepo.save(student);
+
+            }
+        }
         return "redirect:/student";
     }
 

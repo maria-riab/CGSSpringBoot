@@ -31,10 +31,16 @@
                     <td th:text="${grade.semester}"></td>
                     <td th:text="${grade.year}"></td>
                     <td>
-                        <button type="button" class="btn btn-dark">Edit</button>
+                        <form th:href='@{/grade}' th:method="post">
+                            <input type="hidden" name="transcriptID" th:value="${grade.transcriptID}">
+                            <button type="submit" name="actionType" class="btn btn-dark" value="sendToModify">Edit</button>
+                        </form>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <form th:href='@{/grade}' th:method="post">
+                            <input type="hidden" name="transcriptID" th:value="${grade.transcriptID}">
+                            <button type="submit" name="actionType" class="btn btn-danger" value="delete">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

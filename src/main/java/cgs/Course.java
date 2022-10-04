@@ -41,7 +41,22 @@ public class Course {
     public Collection<Grade> getCourseGrades() {
         return grades;
     }
-
+    public void updateGrade(Grade grade){
+        for(Grade sGrade : grades){
+            if (sGrade.getTranscriptID() == grade.getTranscriptID()){
+                sGrade.setGrade(grade.getGrade());
+                sGrade.setSemester(grade.getSemester());
+                sGrade.setYear(grade.getYear());
+            }
+        }
+    }
+    public void deleteGrade(Grade grade){
+        for(Grade sGrade : grades){
+            if (sGrade.getTranscriptID() == grade.getTranscriptID()){
+                this.grades.remove(sGrade);
+            }
+        }
+    }
     public void setCourseGrades(Collection<Grade> grades) {
         this.grades = grades;
     }

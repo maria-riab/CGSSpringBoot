@@ -24,12 +24,19 @@
                 <tr th:each="course : ${courseList}" th:value="${course.courseID}">
                     <td th:text="${course.name}"></td>
                     <td th:text="${course.description}"></td>
+
                     <td th:text="${course.administratorId}"></td>
                     <td>
-                        <button type="button" class="btn btn-dark">Edit</button>
+                        <form th:href='@{/course}' method="post">
+                            <input type="hidden" name="courseID" th:value="${course.courseID}">
+                            <button type="submit" name="actionType" class="btn btn-dark" value="sendToModify">Edit</button>
+                        </form>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <form th:href='@{/course}' method="post">
+                            <input type="hidden" name="courseID" th:value="${course.courseID}">
+                            <button type="submit" name="actionType" class="btn btn-danger" value="delete">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

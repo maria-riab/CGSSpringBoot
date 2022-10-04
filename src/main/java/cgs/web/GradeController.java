@@ -76,4 +76,39 @@ public class GradeController {
         long stId = grade.getStudent().getId();
         return "redirect:/student/" + stId;
     }
+    @PostMapping
+    private String modifyOrDeleteGrade(
+            @RequestParam(name = "transcriptID") String transcriptID, @RequestParam(name = "actionType", required = false) String actionType, Grade grade, Model model,
+            @RequestParam(name = "semester", required = false) String semester, @RequestParam(name = "selectedStudent", required = false) String selectedStudent, @RequestParam(name = "selectedCourse", required = false) String selectedCourse) {
+
+
+        if (actionType.equalsIgnoreCase("delete")) {
+//            Grade gradeInRepo =  gradeRepo.findById(Long.parseLong(transcriptID)).orElse(null);
+//            gradeInRepo.getStudent().deleteGrade(grade);
+//            gradeInRepo.getCourse().deleteGrade(grade);
+            gradeRepo.deleteById(Long.parseLong(transcriptID));
+            return "redirect:/grade";
+
+        } else if (actionType.equalsIgnoreCase("sendToModify")){
+            model.addAttribute("gradeToModify",  gradeRepo.findById(Long.parseLong(transcriptID)).get());
+            return "editGrade";
+        }
+        else if (actionType.equalsIgnoreCase("edit")){
+
+            if (grade != null && grade.getTranscriptID() == Long.parseLong(transcriptID)){
+                Student studentSelected = studentRepo.findById(Long.valueOf(Integer.parseInt(selectedStudent))).orElse(null);
+                Course courseSelected = courseRepo.findById(Long.valueOf(Integer.parseInt(selectedCourse))).orElse(null);
+
+                grade.setCourse(courseSelected);
+                grade.setStudent(studentSelected);
+                grade.setSemester(semester.charAt(0));
+
+//                studentSelected.updateGrade(grade);
+//                courseSelected.updateGrade(grade);
+                gradeRepo.save(grade);
+            }
+        }
+        long stId = grade.getStudent().getId();
+        return "redirect:/student/" + stId;
+    }
 }

@@ -12,18 +12,30 @@
         <div class="row col-4 justify-content-md-center p-3">
             <table class="table table-bordered">
                 <thead>
-                <tr th:each="grade : ${studentGrades}" th:value="${grade.transcriptID}">
+<!--                <tr th:each="grade : ${studentGrades}" th:value="${grade.transcriptID}">-->
+<!--                    <th>Student</th>-->
+<!--                    <td th:text="${grade.student.firstName}"></td>-->
+<!--                    <td th:text="${grade.student.lastName}"></td>-->
+
+<!--                </tr>-->
+                <tr>
                     <th>Student</th>
-                    <td th:text="${grade.student.firstName}"></td>
-                    <td th:text="${grade.student.lastName}"></td>
+                    <td th:text="${studentToDisplayGrades.firstName}"></td>
+                    <td th:text="${studentToDisplayGrades.lastName}"></td>
 
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="grade : ${studentGrades}" th:value="${grade.transcriptID}">
+<!--                <tr th:each="grade : ${studentGrades}" th:value="${grade.transcriptID}">-->
+<!--                    <th>Address</th>-->
+<!--                    <td th:text="${grade.student.address}"></td>-->
+<!--                    <td th:text="${grade.student.city}"></td>-->
+<!--                </tr>-->
+                <tr>
                     <th>Address</th>
-                    <td th:text="${grade.student.address}"></td>
-                    <td th:text="${grade.student.city}"></td>
+                    <td th:text="${studentToDisplayGrades.address}"></td>
+                    <td th:text="${studentToDisplayGrades.city}"></td>
+
                 </tr>
                 </tbody>
 
@@ -49,10 +61,16 @@
                     <td th:text="${grade.semester}"></td>
                     <td th:text="${grade.year}"></td>
                     <td>
-                        <button type="button" class="btn btn-dark">Edit</button>
+                        <form th:action='@{/grade}' th:method="post">
+                            <input type="hidden" name="transcriptID" th:value="${grade.transcriptID}">
+                            <button type="submit" name="actionType" class="btn btn-dark" value="sendToModify">Edit</button>
+                        </form>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <form th:action='@{/grade}' th:method="post">
+                            <input type="hidden" name="transcriptID" th:value="${grade.transcriptID}">
+                            <button type="submit" name="actionType" class="btn btn-danger" value="delete">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

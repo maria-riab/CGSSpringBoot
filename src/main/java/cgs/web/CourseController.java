@@ -1,6 +1,7 @@
 package cgs.web;
 
 import cgs.Course;
+import cgs.Student;
 import cgs.data.AdministratorRepository;
 import cgs.data.CourseRepository;
 import lombok.AllArgsConstructor;
@@ -8,11 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -47,10 +46,6 @@ public class CourseController {
     public Course course(){
         return new Course();
     }
-//    @ModelAttribute(name = "instructors")
-//    public List getAllInstructors(){
-//        return administratorRepo.findAllInstructors();
-//    }
 
     @GetMapping
     public String showAllCourses(){
@@ -68,6 +63,22 @@ public class CourseController {
             return "addCourse";
         }
         courseRepo.save(course);
+        return "redirect:/course";
+    }
+    @PostMapping
+    private String modifyOrDeleteCourse(@RequestParam(name = "courseID") String courseID, @RequestParam(name = "actionType", required = false) String actionType, Course course, Model model) {
+        if (actionType.equalsIgnoreCase("delete")) {
+            courseRepo.deleteById(Long.parseLong(courseID));
+            return "redirect:/course";
+        } else if (actionType.equalsIgnoreCase("sendToModify")){
+            model.addAttribute("courseToModify",  courseRepo.findById(Long.parseLong(courseID)).get());
+            return "editCourse";
+        }
+        else if (actionType.equalsIgnoreCase("edit")){ // the student is here to be modified lol
+            if (course != null && course.getCourseID() == Long.parseLong(courseID)){
+                courseRepo.save(course);
+            }
+        }
         return "redirect:/course";
     }
 }

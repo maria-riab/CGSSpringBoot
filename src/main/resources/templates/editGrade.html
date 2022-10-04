@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="container-md p-5">
+            <h1>Add a new grade</h1>
+        </div>
+
+        <div class="row col-6 justify-content-md-center p-3">
+            <table class="table justify-content border-white ">
+                <form th:href='@{/grade}' th:method="post" th:object="${grade}">
+                    <input type="hidden" th:field="${gradeToModify.transcriptID}">
+                    <input type="hidden" name="actionType" value="edit">
+                    <tr>
+                        <td>
+                            <p>Select a course and a student:</p>
+                        </td>
+                        <td>
+                            <select class="custom-select" name="selectedStudent">
+                                <option th:value="${gradeToModify.student.id}" th:text="${gradeToModify.student.firstName} + ' ' + ${gradeToModify.student.lastName}">
+                            </select>
+                        </td>
+
+                        <td>
+                            <select name="selectedCourse">
+                                <option th:value="${gradeToModify.course.courseID}" th:text="${gradeToModify.course.name}">
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="grade" class="form-label">Grade</label>
+                            <input type="number" min="0" max="100" th:field="${gradeToModify.grade}" id="grade" class="form-control">
+                        </td>
+
+                        <td>
+                            <label for="semester" class="form-label">Semester</label>
+                            <input type="text" th:field="${gradeToModify.semester}" id="semester" class="form-control">
+                        </td>
+
+                        <td>
+                            <label for="year" class="form-label">Year</label>
+                            <input type="number" min="2020" max="2022" th:field="${gradeToModify.year}" id="year"
+                                   class="form-control">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <!-- Submit button -->
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary btn-block mb-3">Submit</button>
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+                </form>
+            </table>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>
